@@ -14,7 +14,6 @@
     <script src="https://cdn.polyfill.io/v3/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,TextDecoder"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/3.18.3/minified.js"></script>
     <script src="https://kit.fontawesome.com/aa99f25d07.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
 </head>
 
@@ -120,10 +119,12 @@
                     <label>Bản đồ nền</label>
                 </div>
                 <div class="map-menu__map">
-                    <input type="radio" name="baseLayerRadioButton" value="OSMStandard" id="OSMStandard" checked />
+                    <input type="radio" name="baseLayerRadioButton" value="OSMStandard" id="OSMStandard" />
                     <label for="OSMStandard">Open Street Map</label><br>
-                    <input type="radio" name="baseLayerRadioButton" value="StamenTerrian" id="StamenTerrian" />
-                    <label for="StamenTerrian">StamenTerrian</label> <br>
+                    <input type="radio" name="baseLayerRadioButton" value="GoogleMap" id="GoogleMap" checked/>
+                    <label for="GoogleMap">Google Map</label> <br>
+                    <input type="radio" name="baseLayerRadioButton" value="NoBasemap" id="NoBasemap" />
+                    <label for="NoBasemap">No Basemap</label> <br>
                 </div>
             </div>
 

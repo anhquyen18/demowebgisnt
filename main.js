@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
         var xa_VanNinh = [];
 
 
-        await fetch("./map_data.json")
+        await fetch("./map_data_epsg3857.json")
             .then(function(resp) {
                 return resp.json();
             }).then(function(data) {
@@ -317,8 +317,8 @@ jQuery(document).ready(function($) {
         //MAP --------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         var format = 'image/png';
-        var bounds = [108.66931915300006, 11.769107818000066,
-            109.46916961700006, 12.868671416000073
+        var bounds = [12097013.272963697, 1319442.5689750076,
+            12186052.219326938, 1444732.2450413236
         ];
 
         // POPUP
@@ -337,9 +337,10 @@ jQuery(document).ready(function($) {
         });
 
         var projection = new ol.proj.Projection({
-            code: 'EPSG:4326',
-            // code: 'EPSG:3857',
-            units: 'degrees',
+            // code: 'EPSG:4326',
+            code: 'EPSG:3857',
+            // units: 'degrees',
+            units: 'm',
             axisOrientation: 'neu',
         });
 
@@ -509,9 +510,6 @@ jQuery(document).ready(function($) {
             }
             return output;
         };
-        const measureRaster = new ol.layer.Tile({
-            source: new ol.source.OSM(),
-        });
 
         const measureSource = new ol.source.Vector();
 
@@ -578,6 +576,7 @@ jQuery(document).ready(function($) {
             coordinateFormat: ol.coordinate.createStringXY(4),
             projection: 'EPSG:4326',
             // projection: 'EPSG:3857',
+            // projection: 'EPSG:32648',
             // comment the following two lines to have the mouse position
             // be placed within the map.
             className: 'custom-mouse-position',
@@ -596,19 +595,25 @@ jQuery(document).ready(function($) {
                     'FORMAT': format,
                     'VERSION': '1.1.1',
                     STYLES: '',
-                    LAYERS: 'WebGIS_NhaTrang:hanh_chinh_nha_trang',
+                    LAYERS: 'WebGIS_NhaTrang:hanh_chinh_nha_trang_EPSG3857',
                 },
             })
         });
 
         var googleBaseMap = new ol.layer.Tile({
-            title: "Google Sattelite",
+            title: "GoogleMap",
             type: "base",
             visible: true,
             opacity: 1,
             source: new ol.source.XYZ({
                 url: "https://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga",
             }),
+        });
+
+        var noBasemap = new ol.layer.Tile({
+            // source: new ol.source.OSM(),
+            title: 'NoBasemap',
+            visible: false,
         });
 
         //OverViewMap
@@ -620,12 +625,31 @@ jQuery(document).ready(function($) {
             ],
         });
 
+        var baseLayerGroup = new ol.layer.Group({
+            layers: [
+                openStreetMapStandard, googleBaseMap, noBasemap
+            ]
+        });
+
+        var baseLayerElements = document.querySelectorAll('.map-menu__map>input[type=radio]');
+        for (let baseLayerElement of baseLayerElements) {
+            baseLayerElement.addEventListener('change', function() {
+                let baseLayerElementValue = this.value;
+                baseLayerGroup.getLayers().forEach(function(element, index, array) {
+                    let baseLayerTitle = element.get('title');
+                    console.log(baseLayerTitle);
+                    console.log(baseLayerElementValue);
+                    element.setVisible(baseLayerTitle === baseLayerElementValue);
+                })
+            })
+        }
+
         var map = new ol.Map({
             controls: ol.control.defaults().extend([fullScreen, mousePositionControl, overviewMapControl]),
             target: 'map',
             layers: [
                 // openStreetMapStandard, hanhChinhMap
-                measureRaster, googleBaseMap, hanhChinhMap, measureVector
+                baseLayerGroup, hanhChinhMap, measureVector
             ],
             view: new ol.View({
                 // center: ol.proj.fromLonLat([109.196749, 12.238791]),
@@ -677,7 +701,6 @@ jQuery(document).ready(function($) {
             measureModify.setActive(true);
             map.addInteraction(draw);
         }
-
 
         measureAddInteraction();
         typeSelect.onchange = function() {
@@ -784,6 +807,7 @@ jQuery(document).ready(function($) {
         //BUTTON BAR-------------------------------------------------------------------------
         $('#home-button').click(() => {
             map.getView().fit(bounds, map.getSize());
+            // map.getView().setCenter([619517.632, 1327885.569]);
         })
         $('#zoom-in-button').click(function() {
             map.getView().setZoom(map.getView().getZoom() + 1);
@@ -846,6 +870,8 @@ jQuery(document).ready(function($) {
                         var coord = [parseFloat(dataMap[i].pos_x), parseFloat(dataMap[i].pos_y)];
                         map.getView().setCenter(coord);
                         map.getView().setZoom(13);
+                        console.log(dataMap[i].name);
+                        console.log(dataMap[i].pos_x, dataMap[i].pos_y);
                     });
                 }
             }
