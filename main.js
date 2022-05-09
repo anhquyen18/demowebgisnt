@@ -1,3 +1,5 @@
+import * as mapModules from "./modules.js";
+
 pageEffects();
 
 //-------------------------------------------------------------------------
@@ -6,7 +8,7 @@ function pageEffects() {
     const mapMenu = document.getElementById("map-menu");
     mapButton.addEventListener('click', () => {
         mapMenu.classList.toggle("active");
-    })
+    });
 
     const search = document.querySelector('.search-button');
     const searchBt = document.querySelector('#search-button');
@@ -23,139 +25,60 @@ function pageEffects() {
 
 }
 
+function HanhChinhLabel(name, parrent, pos_x, pos_y) {
+    this.name = name;
+    this.parrent = parrent;
+    this.pos_x = pos_x;
+    this.pos_y = pos_y;
+}
+
+
 //-------------------------------------------------------------------------
 jQuery(document).ready(function($) {
 
-    // Danh Mục
-    // map data from json file
-    // var mapData;
     (async() => {
-        var dataMap = [];
-        var huyen = [];
-        var thanhPho = ["Nha Trang", "Cam Ranh"];
-        var thiXa = ["Ninh Hòa"];
-
-        function HanhChinhLabel(name, parrent, pos_x, pos_y) {
-            this.name = name;
-            this.parrent = parrent;
-            this.pos_x = pos_x;
-            this.pos_y = pos_y;
-        }
-        var phuong_NhaTrang = [];
-        var xa_NhaTrang = [];
-        var phuong_CamRanh = [];
-        var xa_CamRanh = [];
-        var phuong_NinhHoa = [];
-        var xa_NinhHoa = [];
-        var thiTran_CamLam = [];
-        var xa_CamLam = [];
-        var thiTran_DienKhanh = [];
-        var xa_DienKhanh = [];
-        var thiTran_KhanhSon = [];
-        var xa_KhanhSon = [];
-        var thiTran_KhanhVinh = [];
-        var xa_KhanhVinh = [];
-        var thiTran_VanNinh = [];
-        var xa_VanNinh = [];
+        var hanhChinhData = [];
+        var huyenData = [];
 
 
         await fetch("./map_data_epsg3857.json")
             .then(function(resp) {
                 return resp.json();
             }).then(function(data) {
-                dataMap = data.rows;
+                hanhChinhData = data.rows;
             });
 
-        var dataHuyen = [];
-        for (let i = 0; i < dataMap.length; i++) {
-            dataHuyen.push(dataMap[i].name_2);
-            if (dataMap[i].name_2 === "Nha Trang" && dataMap[i].type_3 === "Phường") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                phuong_NhaTrang.push(hc);
-            } else if (dataMap[i].name_2 === "Nha Trang" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_NhaTrang.push(hc);
-            } else if (dataMap[i].name_2 === "Cam Ranh" && dataMap[i].type_3 === "Phường") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                phuong_CamRanh.push(hc);
-            } else if (dataMap[i].name_2 === "Cam Ranh" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_CamRanh.push(hc);
-            } else if (dataMap[i].name_2 === "Ninh Hòa" && dataMap[i].type_3 === "Phường") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                phuong_NinhHoa.push(hc);
-            } else if (dataMap[i].name_2 === "Ninh Hòa" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_NinhHoa.push(hc);
-            } else if (dataMap[i].name_2 === "Cam Lâm" && dataMap[i].type_3 === "Thị trấn") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                thiTran_CamLam.push(hc);
-            } else if (dataMap[i].name_2 === "Cam Lâm" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_CamLam.push(hc);
-            } else if (dataMap[i].name_2 === "Diên Khánh" && dataMap[i].type_3 === "Thị trấn") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                thiTran_DienKhanh.push(hc);
-            } else if (dataMap[i].name_2 === "Diên Khánh" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_DienKhanh.push(hc);
-            } else if (dataMap[i].name_2 === "Khánh Sơn" && dataMap[i].type_3 === "Thị trấn") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                thiTran_KhanhSon.push(hc);
-            } else if (dataMap[i].name_2 === "Khánh Sơn" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_KhanhSon.push(hc);
-            } else if (dataMap[i].name_2 === "Khánh Vĩnh" && dataMap[i].type_3 === "Thị trấn") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                thiTran_KhanhVinh.push(hc);
-            } else if (dataMap[i].name_2 === "Khánh Vĩnh" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_KhanhVinh.push(hc);
-            } else if (dataMap[i].name_2 === "Vạn Ninh" && dataMap[i].type_3 === "Thị trấn") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                thiTran_VanNinh.push(hc);
-            } else if (dataMap[i].name_2 === "Vạn Ninh" && dataMap[i].type_3 === "Xã") {
-                const hc = new HanhChinhLabel(dataMap[i].name, dataMap[i].name_2, dataMap[i].pos_x, dataMap[i].pos_y);
-                xa_VanNinh.push(hc);
-            }
+        hanhChinhData.sort(function(a, b) {
+            return a.type_3.localeCompare(b.type_3);
+        });
+
+
+        for (let i = 0; i < hanhChinhData.length; i++) {
+            huyenData.push({ name: hanhChinhData[i].name_2, prefix: `${mapModules.getParentPrefix(hanhChinhData[i].name_2)}` });
         }
 
-        //Lấy huyện không trùng nhau
-        function onlyUnique(value, index, self) {
-            return self.indexOf(value) === index;
-        }
-        var huyen = dataHuyen.filter(onlyUnique);
-        huyen.splice(3, 2);
-        huyen.splice(4, 1);
+        huyenData = mapModules.getDistinct(huyenData);
 
-
+        huyenData.sort(function(a, b) {
+            return b.prefix.localeCompare(a.prefix);
+        });
 
         $('.left').html = '';
         const hanhChinh = document.createElement('div');
         const satLoDat = document.createElement('div');
         const firstContentHC = document.createElement('div');
         const firstContentSLD = document.createElement('div');
-        const secondContentNhaTrang = document.createElement('div');
-        const secondContentCamRanh = document.createElement('div');
-        const secondContentNinhHoa = document.createElement('div');
-        const secondContentVanNinh = document.createElement('div');
-        const secondContentCamLam = document.createElement('div');
-        const secondContentKhanhVinh = document.createElement('div');
-        const secondContentDienKhanh = document.createElement('div');
-        const secondContentKhanhSon = document.createElement('div');
 
-        hanhChinh.classList.add('first-bar');
+        var secondBarContentDiv = [];
+        for (let i = 0; i < huyenData.length; i++) {
+            secondBarContentDiv.push({ div: document.createElement('div'), name: huyenData[i].name });
+            secondBarContentDiv[i].div.classList.add('second-bar-content');
+        }
+
+        hanhChinh.classList.add('first-bar', 'first-bar--active');
         satLoDat.classList.add('first-bar');
-        firstContentHC.classList.add('first-bar-content');
+        firstContentHC.classList.add('first-bar-content', 'first-bar-content--active');
         firstContentSLD.classList.add('first-bar-content');
-        secondContentNhaTrang.classList.add('second-bar-content');
-        secondContentCamRanh.classList.add('second-bar-content');
-        secondContentNinhHoa.classList.add('second-bar-content');
-        secondContentVanNinh.classList.add('second-bar-content');
-        secondContentCamLam.classList.add('second-bar-content');
-        secondContentKhanhVinh.classList.add('second-bar-content');
-        secondContentDienKhanh.classList.add('second-bar-content');
-        secondContentKhanhSon.classList.add('second-bar-content');
 
         hanhChinh.innerHTML = `
     <i class="fa-regular fa-square-plus"></i>
@@ -175,135 +98,36 @@ jQuery(document).ready(function($) {
 <p class="plus-heading">Kịch bản ${i}</p>
 </div>`;
         };
-        for (let i = 0; i < thanhPho.length; i++) {
+
+        for (let i = 0; i < huyenData.length; i++) {
             firstContentHC.innerHTML += `
-    <div class="second-bar">
-    <i class="fa-regular fa-square-plus"></i>
-    <i class="fa-regular fa-square-minus"></i>
-    <p class="plus-heading">Thành phố ${thanhPho[i]}</p>
-</div>`;
-        };
-        for (let i = 0; i < thiXa.length; i++) {
-            firstContentHC.innerHTML += `
-    <div class="second-bar">
-    <i class="fa-regular fa-square-plus"></i>
-    <i class="fa-regular fa-square-minus"></i>
-    <p class="plus-heading">Thị xã ${thiXa[i]}</p>
-</div>`;
-        };
-        for (let i = 0; i < huyen.length; i++) {
-            firstContentHC.innerHTML += `
-    <div class="second-bar">
-    <i class="fa-regular fa-square-plus"></i>
-    <i class="fa-regular fa-square-minus"></i>
-    <p class="plus-heading">Huyện ${huyen[i]}</p>
-</div>`;
+                <div class="second-bar">
+                <i class="fa-regular fa-square-plus"></i>
+                <i class="fa-regular fa-square-minus"></i>
+                <p class="plus-heading">${huyenData[i].prefix} ${huyenData[i].name}</p>
+            </div>`;
         };
 
-        for (let i = 0; i < phuong_NhaTrang.length; i++) {
-            secondContentNhaTrang.innerHTML += `
-            <div class="second-content-item">Phường ${phuong_NhaTrang[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_NhaTrang.length; i++) {
-            secondContentNhaTrang.innerHTML += `
-            <div class="second-content-item">Xã ${xa_NhaTrang[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < phuong_CamRanh.length; i++) {
-            secondContentCamRanh.innerHTML += `
-            <div class="second-content-item">Phường ${phuong_CamRanh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_CamRanh.length; i++) {
-            secondContentCamRanh.innerHTML += `
-            <div class="second-content-item">Xã ${xa_CamRanh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < phuong_NinhHoa.length; i++) {
-            secondContentNinhHoa.innerHTML += `
-            <div class="second-content-item">Phường ${phuong_NinhHoa[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_NinhHoa.length; i++) {
-            secondContentNinhHoa.innerHTML += `
-            <div class="second-content-item">Xã ${xa_NinhHoa[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < thiTran_VanNinh.length; i++) {
-            secondContentVanNinh.innerHTML += `
-            <div class="second-content-item">Thị trấn ${thiTran_VanNinh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_VanNinh.length; i++) {
-            secondContentVanNinh.innerHTML += `
-            <div class="second-content-item">Xã ${xa_VanNinh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < thiTran_CamLam.length; i++) {
-            secondContentCamLam.innerHTML += `
-            <div class="second-content-item">Thị trấn ${thiTran_CamLam[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_CamLam.length; i++) {
-            secondContentCamLam.innerHTML += `
-            <div class="second-content-item">Xã ${xa_CamLam[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < thiTran_KhanhVinh.length; i++) {
-            secondContentKhanhVinh.innerHTML += `
-            <div class="second-content-item">Thị trấn ${thiTran_KhanhVinh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_KhanhVinh.length; i++) {
-            secondContentKhanhVinh.innerHTML += `
-            <div class="second-content-item">Xã ${xa_KhanhVinh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < thiTran_DienKhanh.length; i++) {
-            secondContentDienKhanh.innerHTML += `
-            <div class="second-content-item">Thị trấn ${thiTran_DienKhanh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_DienKhanh.length; i++) {
-            secondContentDienKhanh.innerHTML += `
-            <div class="second-content-item">Xã ${xa_DienKhanh[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < thiTran_KhanhSon.length; i++) {
-            secondContentKhanhSon.innerHTML += `
-            <div class="second-content-item">Thị trấn ${thiTran_KhanhSon[i].name}</div>
-            `;
-        };
-        for (let i = 0; i < xa_KhanhSon.length; i++) {
-            secondContentKhanhSon.innerHTML += `
-            <div class="second-content-item">Xã ${xa_KhanhSon[i].name}</div>
-            `;
-        };
+        for (let i = 0; i < hanhChinhData.length; i++) {
+            for (let j = 0; j < secondBarContentDiv.length; j++) {
+                if (hanhChinhData[i].name_2 === secondBarContentDiv[j].name) {
+                    secondBarContentDiv[j].div.innerHTML += `<div class="second-content-item">${hanhChinhData[i].type_3} ${hanhChinhData[i].name}</div>`;
+                }
+            }
+        }
+
         $('.left').append(hanhChinh);
         $('.left').append(firstContentHC);
         $('.left').append(satLoDat);
-        // console.log($(".first-bar:nth(1)"));
-        $(".first-bar:nth(1)").after(firstContentSLD);
 
-        $('.plus-heading').each(function() {
-            if ($(this).text() === "Thành phố Nha Trang")
-                $(this).parent().after(secondContentNhaTrang);
-            else if ($(this).text() === "Thành phố Cam Ranh")
-                $(this).parent().after(secondContentCamRanh);
-            else if ($(this).text() === "Thị xã Ninh Hòa")
-                $(this).parent().after(secondContentNinhHoa);
-            else if ($(this).text() === "Huyện Vạn Ninh")
-                $(this).parent().after(secondContentVanNinh);
-            else if ($(this).text() === "Huyện Cam Lâm")
-                $(this).parent().after(secondContentCamLam);
-            else if ($(this).text() === "Huyện Khánh Vĩnh")
-                $(this).parent().after(secondContentKhanhVinh);
-            else if ($(this).text() === "Huyện Diên Khánh")
-                $(this).parent().after(secondContentDienKhanh);
-            else if ($(this).text() === "Huyện Khánh Sơn")
-                $(this).parent().after(secondContentKhanhSon);
-        });
+        $(".first-bar:nth(1)").after(firstContentSLD);
+        for (let i = 0; i < secondBarContentDiv.length; i++) {
+            $('.plus-heading').each(function() {
+                if ($(this).text().endsWith(secondBarContentDiv[i].name)) {
+                    $(this).parent().after(secondBarContentDiv[i].div);
+                }
+            });
+        }
 
         $(".left .first-bar").click(function() {
             $(this).next().toggleClass("first-bar-content--active");
@@ -314,8 +138,17 @@ jQuery(document).ready(function($) {
             $(this).toggleClass("second-bar--active");
         });
 
-        //MAP --------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+        //MAP ---------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------
         var format = 'image/png';
         var bounds = [12097013.272963697, 1319442.5689750076,
             12186052.219326938, 1444732.2450413236
@@ -329,6 +162,8 @@ jQuery(document).ready(function($) {
         const typeSelect = document.getElementById('type');
         const showSegments = document.getElementById('segments');
         const clearPrevious = document.getElementById('clear');
+        // DRAW TOOL
+        const drawTypeSelect = document.getElementById('draw-type');
 
         var openStreetMapStandard = new ol.layer.Tile({
             source: new ol.source.OSM(),
@@ -369,12 +204,10 @@ jQuery(document).ready(function($) {
             // Đa giác lúc đo vùng
             fill: new ol.style.Fill({
                 color: 'rgba(255, 255, 255, 0.2)',
-                // color: 'rgba(240, 128, 128, 1)',
             }),
             // Đường thẳng
             stroke: new ol.style.Stroke({
-                // color: 'rgba(0, 0, 0, 0.5)',
-                color: 'rgba(240, 128, 128, 1)',
+                color: 'rgba(38, 111, 247, 0.8)',
                 lineDash: [10, 10],
                 width: 2,
             }),
@@ -385,7 +218,7 @@ jQuery(document).ready(function($) {
                     color: 'rgba(0, 0, 0, 0.7)',
                 }),
                 fill: new ol.style.Fill({
-                    color: 'rgba(255, 255, 255, 0.2)',
+                    color: 'rgba(38, 111, 247, 0.5)',
                 }),
             }),
         });
@@ -396,7 +229,6 @@ jQuery(document).ready(function($) {
                 font: '14px Calibri,sans-serif',
                 fill: new ol.style.Fill({
                     color: 'rgba(255, 255, 255, 1)',
-                    // color: 'rgba(24,23, 225, 1)'
                 }),
                 backgroundFill: new ol.style.Fill({
                     color: 'rgba(0, 0, 0, 0.7)',
@@ -443,7 +275,7 @@ jQuery(document).ready(function($) {
                 }),
                 fill: new ol.style.Fill({
                     color: 'rgba(0, 0, 0, 0.4)',
-                    color: 'rgba(240, 128, 128, 1)',
+                    color: 'rgba(38, 111, 247, 0.8)',
 
                 }),
             }),
@@ -571,11 +403,25 @@ jQuery(document).ready(function($) {
             },
         });
 
+        // Export Map
+        const exportFormat = new ol.format.WKT();
+        const exportFeature = exportFormat.readFeature(
+            'POLYGON((10.689697265625 -25.0927734375, 34.595947265625 ' +
+            '-20.1708984375, 38.814697265625 -35.6396484375, 13.502197265625 ' +
+            '-39.1552734375, 10.689697265625 -25.0927734375))'
+        );
+        const exportVector = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [exportFeature],
+            }),
+            opacity: 0,
+        });
+
         // Mouse Position
         const mousePositionControl = new ol.control.MousePosition({
             coordinateFormat: ol.coordinate.createStringXY(4),
-            projection: 'EPSG:4326',
-            // projection: 'EPSG:3857',
+            // projection: 'EPSG:4326',
+            projection: 'EPSG:3857',
             // projection: 'EPSG:32648',
             // comment the following two lines to have the mouse position
             // be placed within the map.
@@ -583,6 +429,25 @@ jQuery(document).ready(function($) {
             target: document.getElementById('mouse-position'),
         });
 
+        const pageSize = {
+            a0: [1189, 841],
+            a1: [841, 594],
+            a2: [594, 420],
+            a3: [420, 297],
+            a4: [297, 210],
+            a5: [210, 148],
+        };
+
+
+        // Map Scale Bar
+        const scaleControl = new ol.control.ScaleLine({
+            units: 'metric',
+            bar: true,
+            steps: 4,
+            text: true,
+            minWidth: 100,
+            target: document.getElementById('scale-line'),
+        });
 
         // Full Screen
         var fullScreen = new ol.control.FullScreen();
@@ -594,11 +459,15 @@ jQuery(document).ready(function($) {
                 params: {
                     'FORMAT': format,
                     'VERSION': '1.1.1',
-                    STYLES: '',
+                    STYLES: 'WebGIS_NhaTrang:style_hanhChinhNhaTrang',
                     LAYERS: 'WebGIS_NhaTrang:hanh_chinh_nha_trang_EPSG3857',
                 },
-            })
+                crossOrigin: "Anonymous",
+                format: new ol.format.GeoJSON(),
+                wrapX: false,
+            }),
         });
+
 
         var googleBaseMap = new ol.layer.Tile({
             title: "GoogleMap",
@@ -607,24 +476,32 @@ jQuery(document).ready(function($) {
             opacity: 1,
             source: new ol.source.XYZ({
                 url: "https://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga",
+                crossOrigin: "Anonymous"
             }),
         });
 
         var noBasemap = new ol.layer.Tile({
-            // source: new ol.source.OSM(),
             title: 'NoBasemap',
             visible: false,
         });
 
         //OverViewMap
-        const overviewMapControl = new ol.control.OverviewMap({
+        const osmOverviewMapControl = new ol.control.OverviewMap({
             layers: [
                 new ol.layer.Tile({
                     source: openStreetMapStandard.getSource(),
                 }),
             ],
         });
+        const googleOverviewMapControl = new ol.control.OverviewMap({
+            layers: [
+                new ol.layer.Tile({
+                    source: googleBaseMap.getSource(),
+                }),
+            ],
+        });
 
+        // Basemap
         var baseLayerGroup = new ol.layer.Group({
             layers: [
                 openStreetMapStandard, googleBaseMap, noBasemap
@@ -637,34 +514,100 @@ jQuery(document).ready(function($) {
                 let baseLayerElementValue = this.value;
                 baseLayerGroup.getLayers().forEach(function(element, index, array) {
                     let baseLayerTitle = element.get('title');
-                    console.log(baseLayerTitle);
-                    console.log(baseLayerElementValue);
                     element.setVisible(baseLayerTitle === baseLayerElementValue);
                 })
             })
         }
 
+        // Draw Vector
+        var drawVector = new ol.layer.Vector({
+            background: 'transparent',
+            source: new ol.source.Vector({
+                url: 'test (1).json',
+                format: new ol.format.GeoJSON(),
+                wrapX: false,
+            }),
+        });
+
+        // Select for editing feature
+        var featureSelect = new ol.interaction.Select({
+            wrapX: false,
+        });
+        var selectedFeatures, selectedFeature, selectedId, selectedGeometry, selectedProperties;
+        var newSelectedProperties = [];
+        featureSelect.on('select', function() {
+            newSelectedProperties = [];
+            $('.feature-properties').html("");
+
+            selectedFeatures = featureSelect.getFeatures();
+            selectedFeature = selectedFeatures.item(0);
+
+            selectedId = selectedFeature.getId();
+            selectedGeometry = selectedFeature.getGeometry();
+            selectedProperties = selectedFeature.getProperties();
+            console.log(selectedProperties);
+
+            mapModules.createField('.feature-properties', 'id', selectedId, true);
+
+            for (let x in selectedProperties) {
+                if (x === 'geometry') {
+                    continue;
+                }
+                mapModules.createField('.feature-properties', x, selectedProperties[x], false);
+                // newProperties.push({
+                //     [label.innerText]: text.value
+                // });
+            }
+        });
+
+        var featureModify = new ol.interaction.Modify({
+            features: featureSelect.getFeatures(),
+        });
+
+        const featureVector = new ol.layer.Vector({
+            background: 'transparent',
+            source: new ol.source.Vector({
+                url: 'test.json',
+                format: new ol.format.GeoJSON(),
+                wrapX: false,
+            }),
+        });
+
+
         var map = new ol.Map({
-            controls: ol.control.defaults().extend([fullScreen, mousePositionControl, overviewMapControl]),
+            controls: ol.control.defaults().extend([fullScreen, mousePositionControl, googleOverviewMapControl, scaleControl]),
+            // interactions: ol.interaction.defaults().extend([featureSelect, featureModify]),
             target: 'map',
             layers: [
-                // openStreetMapStandard, hanhChinhMap
-                baseLayerGroup, hanhChinhMap, measureVector
+                baseLayerGroup, hanhChinhMap, drawVector, featureVector, measureVector, exportVector,
             ],
             view: new ol.View({
                 // center: ol.proj.fromLonLat([109.196749, 12.238791]),
-                // zoom: 9.5,
-                // maxZoom: 20,
-                //minZoom: 1,
                 //rotation: 0.8,
+                minZoom: 3,
+                maxZoom: 20,
                 projection: projection
             }),
-            overlays: [overlayPopup]
+
+            // overlays: [overlayPopup]
         });
 
         map.getView().fit(bounds, map.getSize());
-        // console.log(map.getView().getProjection());
-        // Measure Tools
+
+        // Change overviewmap
+        $('.map-menu__map input').change(function() {
+                if ($(this).val() === 'OSMStandard') {
+                    map.removeControl(googleBaseMap);
+                    map.addControl(osmOverviewMapControl);
+                } else if ($(this).val() === 'GoogleMap') {
+                    map.removeControl(osmOverviewMapControl);
+                    map.addControl(googleOverviewMapControl);
+                } else {
+                    map.removeControl(osmOverviewMapControl);
+                    map.removeControl(googleOverviewMapControl);
+                }
+            })
+            // Measure Tools
         map.addInteraction(measureModify);
         let draw;
 
@@ -712,25 +655,63 @@ jQuery(document).ready(function($) {
             draw.getOverlay().changed();
         };
         map.removeInteraction(draw);
+
+        // Draw tool
+        let drawFeature;
+
+        var featrueIdArr = []; // Tạo id cho features
+        drawVector.getSource().on('featuresloadend', function(evt) {
+            const source = evt.target;
+            source.forEachFeature(function(feature) {
+                featrueIdArr.push(feature.getId());
+            });
+        });
+
+        function drawAddInteraction() {
+            const value = drawTypeSelect.value;
+            drawFeature = new ol.interaction.Draw({
+                source: drawVector.getSource(),
+                type: value,
+            });
+            drawFeature.on('drawend', function(e) {
+                var id = parseInt(featrueIdArr.length) + 1;
+                featrueIdArr.push(id);
+                e.feature.setId(id);
+            });
+            map.addInteraction(drawFeature);
+        }
+        drawTypeSelect.onchange = function() {
+            map.removeInteraction(drawFeature);
+            drawAddInteraction();
+        };
+        document.getElementById('undo-draw-feature').addEventListener('click', function() {
+            drawFeature.removeLastPoint();
+        });
+
         // Hightlight map when click style
-        var styles = {
+        var highlightLabelStyles = {
             'MultiPolygon': new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: 'orange',
-                    width: 1
-                })
+                    // color: 'rgb(98, 225, 225)',
+                    color: 'cyan',
+                    width: 2,
+                }),
+                // fill: new ol.style.Stroke({
+                //     color: 'cyan',
+                // })
             })
         };
 
-        var styleFunction = function(feature) {
-            return styles[feature.getGeometry().getType()];
+        var stylePopupFunction = function(feature) {
+            return highlightLabelStyles[feature.getGeometry().getType()];
         };
 
         var vectorLayerPopup = new ol.layer.Vector({
-            style: styleFunction
+            projection: projection,
+            style: stylePopupFunction
         });
         map.addLayer(vectorLayerPopup);
-
+        vectorLayerPopup.setVisible(false);
 
 
         // Tạo zoom slider mới 
@@ -738,47 +719,10 @@ jQuery(document).ready(function($) {
         map.addControl(zoomSlider);
 
         var view = map.getView();
-        var viewResolution = view.getResolution();
-        var source = hanhChinhMap.getSource();
+        var hanhChinhMapSource = hanhChinhMap.getSource();
 
         map.on('singleclick', function(evt) {
-            var url = source.getFeatureInfoUrl(
-                evt.coordinate, viewResolution, view.getProjection(), {
-                    'INFO_FORMAT': 'application/json',
-                    'FEATURE_COUNT': 1
-                });
-            if (url) {
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: 'json',
-                    success: function(data, status) {
-                        try {
-                            var feature = data.features[0];
-                            var featureAttr = feature.properties;
-                            if (featureAttr["NAME_2"] === "Nha Trang" || featureAttr["NAME_2"] === "Cam Ranh") {
-                                content = featureAttr["TYPE_3"] + " " + featureAttr["NAME_3"] + ",<br>Thành phố " + featureAttr["NAME_2"];
-                            } else if (featureAttr["NAME_2"] === "Ninh Hòa") {
-                                content = featureAttr["TYPE_3"] + " " + featureAttr["NAME_3"] + ",<br>Thị xã " + featureAttr["NAME_2"];
-                            } else {
-                                content = featureAttr["TYPE_3"] + " " + featureAttr["NAME_3"] + ",<br>Huyện " + featureAttr["NAME_2"];
-                            }
-
-                            $("#popup-content").html(content);
-                            overlayPopup.setPosition(evt.coordinate);
-
-                            var vectorSource = new ol.source.Vector({
-                                features: (new ol.format.GeoJSON()).readFeatures(data)
-                            });
-
-                            vectorLayerPopup.setSource(vectorSource);
-                        } catch (err) {
-
-                        }
-                    }
-                });
-            }
+            mapModules.showLabelInfo(evt.coordinate, view, vectorLayerPopup, overlayPopup, hanhChinhMapSource);
         });
 
         $("#hanhChinhCb").change(function() {
@@ -807,7 +751,6 @@ jQuery(document).ready(function($) {
         //BUTTON BAR-------------------------------------------------------------------------
         $('#home-button').click(() => {
             map.getView().fit(bounds, map.getSize());
-            // map.getView().setCenter([619517.632, 1327885.569]);
         })
         $('#zoom-in-button').click(function() {
             map.getView().setZoom(map.getView().getZoom() + 1);
@@ -830,103 +773,222 @@ jQuery(document).ready(function($) {
             vectorLayerPopup.setVisible(false);
         });
         $('#measure-button').on('click', function() {
-            $('.form-inline').toggleClass('form-inline--show');
+            $('.measure-tool .form-inline').toggleClass('form-inline--show');
         });
         $('#measure-switch').click(function() {
             if ($('#measure-switch').is(':checked')) {
                 map.addInteraction(draw);
-                console.log('on');
             } else {
                 map.removeInteraction(draw);
             }
         });
+        $('#export-button').click(function() {
+            $('.export-form').toggleClass('export-form--show');
+        });
+        $('#export-pdf-button').click(function() {
+            $('#export-pdf-button').prop('disabled', true);
+            document.body.style.cursor = 'progress';
+            const format = document.getElementById('export-format').value;
+            const resolution = document.getElementById('export-resolution').value;
+            const dim = pageSize[format];
+            const width = Math.round((dim[0] * resolution) / 25.4);
+            const height = Math.round((dim[1] * resolution) / 25.4);
+            const size = map.getSize();
+            const viewResolution = map.getView().getResolution();
 
-        const listItems = [];
-        // addElementToSearchListBig(thanhPho, 'Thành phố', listItems);
-        // addElementToSearchListBig(thiXa, 'Thị xã', listItems);
-        // addElementToSearchListBig(huyen, 'Huyện', listItems);
-        addElementToSearchListSmall(thiTran_VanNinh, 'Thị trấn', listItems);
-        addElementToSearchListSmall(thiTran_CamLam, 'Thị trấn', listItems);
-        addElementToSearchListSmall(thiTran_KhanhVinh, 'Thị trấn', listItems);
-        addElementToSearchListSmall(thiTran_DienKhanh, 'Thị trấn', listItems);
-        addElementToSearchListSmall(thiTran_KhanhSon, 'Thị trấn', listItems);
-        addElementToSearchListSmall(phuong_NhaTrang, 'Phường', listItems);
-        addElementToSearchListSmall(phuong_CamRanh, 'Phường', listItems);
-        addElementToSearchListSmall(phuong_NinhHoa, 'Phường', listItems);
-        addElementToSearchListSmall(xa_NhaTrang, 'Xã', listItems);
-        addElementToSearchListSmall(xa_CamRanh, 'Xã', listItems);
-        addElementToSearchListSmall(xa_NinhHoa, 'Xã', listItems);
-        addElementToSearchListSmall(xa_VanNinh, 'Xã', listItems);
-        addElementToSearchListSmall(xa_CamLam, 'Xã', listItems);
-        addElementToSearchListSmall(xa_KhanhVinh, 'Xã', listItems);
-        addElementToSearchListSmall(xa_DienKhanh, 'Xã', listItems);
-        addElementToSearchListSmall(xa_KhanhSon, 'Xã', listItems);
+            map.once('rendercomplete', function() {
+                const mapCanvas = document.createElement('canvas');
+                mapCanvas.width = width;
+                mapCanvas.height = height;
+
+                const mapContext = mapCanvas.getContext('2d');
+                Array.prototype.forEach.call(
+                    document.querySelectorAll('.ol-layer canvas'),
+                    function(canvas) {
+                        if (canvas.width > 0) {
+                            canvas.setAttribute('crossOrigin', 'anonymous');
+                            const opacity = canvas.parentNode.style.opacity;
+                            mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity);
+                            const transform = canvas.style.transform;
+                            // Get the transform parameters from the style's transform matrix
+                            const matrix = transform
+                                .match(/^matrix\(([^\(]*)\)$/)[1]
+                                .split(',')
+                                .map(Number);
+                            // Apply the transform to the export map context
+                            CanvasRenderingContext2D.prototype.setTransform.apply(
+                                mapContext,
+                                matrix
+                            );
+                            mapContext.drawImage(canvas, 0, 0);
+                        }
+                    }
+                );
+
+                mapContext.globalAlpha = 1;
+                const pdf = new jspdf.jsPDF('landscape', undefined, format);
+
+                pdf.addImage(
+                    mapCanvas.toDataURL('image/jpeg'),
+                    'PNG', 20, 20,
+                    dim[0] - 40,
+                    dim[1] - 50
+                );
+
+                pdf.rect(20, 20, dim[0] - 40, dim[1] - 50);
+                pdf.addFont('resources/JetBrainsMono-Bold.ttf', 'JetBrain', 'bold');
+                pdf.setFont('JetBrain', 'bold');
+
+                pdf.setFontSize(6);
+                pdf.text(dim[0] - 20, dim[1] - 10, 'GIS DUT TEAM');
+
+                pdf.setTextColor('#4271A7');
+                pdf.setFontSize(16);
+                pdf.text(dim[0] / 2, 10, 'Trường Đại học Bách Khoa - Đại học Đà Nẵng\n Khoa Xây dựng Công trình thủy', { align: 'center' });
+
+                pdf.save($('#export-name').val());
+                // Reset original map size
+                map.setSize(size);
+                map.getView().setResolution(viewResolution);
+                // map.getView().setZoom(map.getView().getZoom() - 1);/
+                $('#export-pdf-button').prop('disabled', false);
+                document.body.style.cursor = 'auto';
+            });
+
+            // Set print size
+            const printSize = [width, height];
+            map.setSize(printSize);
+            const scaling = Math.min(width / size[0], height / size[1]);
+            map.getView().setResolution(viewResolution / scaling);
+            $('#export-pdf-button').prop('disabled', false);
+        });
+        $('#edit-button').click(function() {
+            $('.edit-tool .edit-form').toggleClass('edit-form--show');
+        });
+        $('#start-edit').click(function() {
+            $('#stop-edit').prop('disabled', false);
+            $('#add-field-button').prop('disabled', false);
+            $('#add-field-input').prop('disabled', false);
+            map.addInteraction(featureSelect);
+            map.addInteraction(featureModify);
+        });
+        $('#save-edit').click(function() {
+            $(this).prop('disabled', true);
+            for (let x in selectedProperties) {
+                if (x === 'geometry') {
+                    continue;
+                }
+                selectedFeature.unset(x);
+            }
+            // console.log(newProperties);
+            $('.feature-properties label').each(function() {
+                var key = $(this).text();
+                var value = $(this).next().val();
+                selectedFeature.setProperties({
+                    [key]: value
+                });
+            });
+            selectedFeature.unset('id');
+        });
+        $('#stop-edit').click(function() {
+            $('#stop-edit').prop('disabled', true);
+            $('#add-field-button').prop('disabled', true);
+            $('#add-field-input').prop('disabled', true);
+            $('#save-edit').prop('disabled', true);
+            $('#feature-properties').html('');
+            map.removeInteraction(featureSelect);
+            map.removeInteraction(featureModify);
+        });
+        $('#draw-button').click(function() {
+            $('.draw-tool .draw-form').toggleClass('draw-form--show');
+        });
+        $('#start-draw').click(function() {
+            $('#stop-draw').prop('disabled', false);
+            $('#undo-draw-feature').prop('disabled', false);
+            $('#draw-type').prop('disabled', false);
+            drawAddInteraction();
+        });
+        $('#stop-draw').click(function() {
+            $('#stop-draw').prop('disabled', true);
+            $('#undo-draw-feature').prop('disabled', true);
+            $('#draw-type').prop('disabled', true);
+            map.removeInteraction(drawFeature);
+        });
+        $('#add-field-button').click(function() {
+            $('#save-edit').prop('disabled', false);
+            var name = $('#add-field-input').val();
+            mapModules.createField('.feature-properties', name, '', false);
+            var fieldCount = document.getElementById('feature-properties').childElementCount;
+            var fieldMaxCount = 18;
+            if (fieldCount > fieldMaxCount) {
+                $('#add-field-button').prop('disabled', true);
+            }
+        });
+        // DEMO SAVE GEOJSON
+        $('#test-save').click(function() {
+            var allFeatures = drawVector.getSource().getFeatures();
+            // var allFeatures = usVector.getSource().getFeatures();
+            var format = new ol.format.GeoJSON();
+            var arrVector = format.writeFeaturesObject(allFeatures, { featureProjection: 'EPSG:3857' });
+            exportJson(arrVector);
+        });
+
+        function exportJson(featuresCollection) {
+            var txtArray = [];
+            txtArray.push(JSON.stringify(featuresCollection));
+
+            var blob = new Blob(txtArray, { type: 'text/json;charset=utf8' });
+            saveAs(blob, 'test' + ".txt")
+        };
 
         // Click Danh mục nhảy vị trí
-        $(".second-content-item").each(function() {
-            for (let i = 0; i < dataMap.length; i++) {
-                if ($(this).text().endsWith(dataMap[i].name)) {
+        $(".second-content-item").each(function(event) {
+            for (let i = 0; i < hanhChinhData.length; i++) {
+                if ($(this).text().endsWith(hanhChinhData[i].name)) {
                     $(this).click(function() {
-                        var coord = [parseFloat(dataMap[i].pos_x), parseFloat(dataMap[i].pos_y)];
+                        map.addOverlay(overlayPopup);
+                        vectorLayerPopup.setVisible(true);
+                        var coord = [parseFloat(hanhChinhData[i].pos_x), parseFloat(hanhChinhData[i].pos_y), `${$(this).text()}`];
                         map.getView().setCenter(coord);
                         map.getView().setZoom(13);
-                        console.log(dataMap[i].name);
-                        console.log(dataMap[i].pos_x, dataMap[i].pos_y);
+                        mapModules.showOnlyOneLabelInfo(coord, view, vectorLayerPopup, overlayPopup, hanhChinhMapSource);
+
                     });
                 }
             }
         });
 
         // Tìm kiếm theo tên
+        const searchingPool = [];
+        mapModules.addElementToSearchingPool(hanhChinhData, searchingPool);
+        // console.log(searchingPool.length);
         $('#search-input').on('input', function(e) {
-                filterData(e.target.value, listItems)
+                mapModules.filterData(e.target.value, searchingPool);
             })
+            // mapModules.filterData(searchingPool);
             // Click kết quả search nhảy vị trí
         $(".address-list li").each(function() {
-            for (let i = 0; i < dataMap.length; i++) {
-                if ($(this).text().endsWith(dataMap[i].name)) {
+            var text = $(this).text().split(',', 2);
+            for (let i = 0; i < hanhChinhData.length; i++) {
+                if (text[0].endsWith(hanhChinhData[i].name)) {
                     $(this).click(function() {
-                        console.log($(this).text());
-                        var coord = [parseFloat(dataMap[i].pos_x), parseFloat(dataMap[i].pos_y)];
+                        map.addOverlay(overlayPopup);
+                        vectorLayerPopup.setVisible(true);
+                        var coord = [parseFloat(hanhChinhData[i].pos_x), parseFloat(hanhChinhData[i].pos_y), `${text[0]}`];
                         map.getView().setCenter(coord);
                         map.getView().setZoom(13);
-                        $('.address').removeClass('active');
+                        $('.active').removeClass('active');
+                        mapModules.showOnlyOneLabelInfo(coord, view, vectorLayerPopup, overlayPopup, hanhChinhMapSource);
+
                     });
                 }
             }
         });
 
+
+
+
     })();
 
 
 });
-
-
-// Add Thành phố, thị xã, huyện
-function addElementToSearchListBig(array, type, storage) {
-    for (let i = 0; i < array.length; i++) {
-        const li = document.createElement('li');
-        storage.push(li);
-        li.innerHTML = `${type} ${array[i]}`;
-        $('.address-list').append(li);
-    };
-}
-// Add Phường, xã
-function addElementToSearchListSmall(array, type, storage) {
-    for (let i = 0; i < array.length; i++) {
-        const li = document.createElement('li');
-        storage.push(li);
-        li.innerHTML = `${type} ${array[i].name}`;
-        $('.address-list').append(li);
-    };
-}
-// Search by full name
-function filterData(searchTerm, listItems) {
-    listItems.forEach(item => {
-        if (item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
-            item.classList.remove('hide');
-        } else {
-            item.classList.add('hide');
-        }
-    })
-}
