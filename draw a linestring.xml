@@ -1,0 +1,328 @@
+<!-- <wfs:Transaction service="WFS" version="1.0.0"
+  xmlns:topp="http://www.openplans.org/topp"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-transaction.xsd">
+  <wfs:Update typeName="TestEditingFeature:hanh_chinh_nha_trang_EPSG3857">
+    <wfs:Property>
+      <wfs:Name>the_geom</wfs:Name>
+      <wfs:Value>
+        <gml:MultiLineString srsName="http://www.opengis.net/gml/srs/epsg.xml#3857">
+          <gml:lineStringMember>
+          	<gml:LineString>
+            	<gml:coordinates>12118060.22,1374290.94 12118111.22,1374222.94</gml:coordinates>
+          	</gml:LineString>
+          </gml:lineStringMember>
+        </gml:MultiLineString>
+      </wfs:Value>
+    </wfs:Property>
+    <ogc:Filter>
+      <ogc:FeatureId fid="hanh_chinh_nha_trang_EPSG3857.139"/>
+    </ogc:Filter>
+  </wfs:Update>
+</wfs:Transaction> -->
+
+<wfs:Transaction service="WFS" version="1.0.0"
+  xmlns:topp="http://www.openplans.org/topp"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-transaction.xsd">
+  <wfs:Update typeName="TestEditingFeature:hanh_chinh_nha_trang_EPSG3857">
+    <wfs:Property>
+      <wfs:Name>the_geom</wfs:Name>
+      <wfs:Value>
+        <geom xmlns="http://www.opengis.net/gml"><MultiSurface><surfaceMember><Polygon><exterior><LinearRing><posList srsDimension="2">12153358.40367091 1334080.94152984 12152667.922488 1333367.28068479 12150247.4166384 1336160.82828251 12150111.52860203 1336319.67368427 12150682.25839931 1336407.77670142 12150501.35743628 1336555.44760291 12150908.172289 1336918.28044099 12151578.27020522 1336254.78996389 12153840.80623899 1334610.06788684 12153358.40367091 1334080.94152984</posList></LinearRing></exterior></Polygon></surfaceMember></MultiSurface></geom>
+      </wfs:Value>
+    </wfs:Property>
+    <ogc:Filter>
+      <ogc:FeatureId fid="hanh_chinh_nha_trang_EPSG3857.139"/>
+    </ogc:Filter>
+  </wfs:Update>
+</wfs:Transaction>
+
+
+<!-- Xoá theo giá trị của field -->
+<!-- <wfs:Transaction service="WFS" version="1.0.0"
+  xmlns:cdf="http://www.opengis.net/cite/data"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:topp="http://www.openplans.org/topp">
+  <wfs:Delete typeName="TestEditingFeature:hanh_chinh_nha_trang_EPSG3857">
+    <ogc:Filter>
+      <ogc:PropertyIsEqualTo>
+        <ogc:PropertyName>TestEditingFeature:LABEL_POS</ogc:PropertyName>
+        <ogc:Literal>587303.888,1371321.107</ogc:Literal>
+      </ogc:PropertyIsEqualTo>
+    </ogc:Filter>
+  </wfs:Delete>
+</wfs:Transaction> -->
+
+
+
+<!-- UPDATE the_geom -->
+<wfs:Transaction service="WFS" version="1.1.0"
+  xmlns:topp="http://www.openplans.org/topp"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd">
+  <wfs:Update typeName="TestEditingFeature:hanh_chinh_nha_trang_EPSG3857">
+    <wfs:Property>
+      <wfs:Name>the_geom</wfs:Name>
+      <wfs:Value>
+        <geom xmlns="http://www.opengis.net/gml"><MultiSurface srsName="urn:x-ogc:def:crs:EPSG:3857"><surfaceMember><Polygon srsName="urn:x-ogc:def:crs:EPSG:3857"><exterior><LinearRing srsName="urn:x-ogc:def:crs:EPSG:3857"><posList srsDimension="2">12118792.94345016 1360609.65810958 12120790.368417924 1362632.2235275845 12122675.963337239 1363435.3486955496 12124037.783000104 1364517.8204449487 12126551.910891226 1363924.2073776126 12123967.945855234 1366298.6609789906 12128123.24065667 1364901.9234097055 12126875.60374218 1367385.33503523 12128891.44525415 1365565.3736219127 12128681.935151571 1367939.827556299 12130742.122267047 1364797.1683584156 12131176.453717615 1361668.6140467587 12133081.659294039 1363225.8379269536 12135750.770056244 1361703.5326191941 12133291.169396618 1359699.0760973217 12134563.54258954 1357268.8905703074 12131964.267640172 1355788.210636917 12128627.407920077 1356395.9295895041 12127878.811315639 1359489.5646627094 12122920.39267827 1357219.866112621 12120790.368417924 1359768.9132421925 12118520.66920182 1357499.2146921044 12117822.300417176 1360222.8526858038 12118792.94345016 1360609.65810958</posList></LinearRing></exterior></Polygon></surfaceMember></MultiSurface></geom>
+      </wfs:Value>
+    </wfs:Property>
+    <ogc:Filter>
+      <ogc:FeatureId fid="hanh_chinh_nha_trang_EPSG3857.141"/>
+    </ogc:Filter>
+  </wfs:Update>
+</wfs:Transaction>
+
+<!-- INSERT FEATURE -->
+<wfs:Transaction service="WFS" version="1.1.0"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:TestEditingFeature="http://www.openplans.org/TestEditingFeature"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd http://www.openplans.org/topp http://localhost:8080/geoserver/wfs/DescribeFeatureType?typename=TestEditingFeature:hanh_chinh_nha_trang_EPSG3857">
+  <wfs:Insert>
+    <TestEditingFeature:hanh_chinh_nha_trang_EPSG3857>
+      <TestEditingFeature:the_geom>
+       <geom xmlns="http://www.opengis.net/gml"><Polygon><exterior><LinearRing><posList srsDimension="2">12111840.81502514 1360751.3449522657 12115027.34272415 1360316.8182280993 12115135.974059861 1358578.7123674254 12111333.86764072 1359574.5021438675 12111840.81502514 1360751.3449522657</posList></LinearRing></exterior></Polygon></geom>
+      </TestEditingFeature:the_geom>
+      <TestEditingFeature:NAME>
+      anhquyen
+      </TestEditingFeature:NAME>
+      <TestEditingFeature:GID_0>
+      123
+      </TestEditingFeature:GID_0>
+    </TestEditingFeature:hanh_chinh_nha_trang_EPSG3857>
+  </wfs:Insert>
+</wfs:Transaction>
+
+<Transaction 
+xmlns="http://www.opengis.net/wfs" 
+service="WFS" version="1.1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">
+<Insert>
+<hanh_chinh_nha_trang_ESPG3857 
+xmlns:TestingEditFeature="http://localhost:8080/geoserver/web/wicket/bookmarkable/org.geoserver.web.data.workspace.WorkspaceEditPage?24&amp;name=TestEditingFeature" >
+<geometry>
+<MultiPolygon xmlns="http://www.opengis.net/gml" srsName="urn:x-ogc:def:crs:EPSG:3857">
+<polygonMember>
+<Polygon srsName="urn:x-ogc:def:crs:EPSG:3857">
+<exterior>
+<LinearRing srsName="urn:x-ogc:def:crs:EPSG:3857">
+<posList srsDimension="2">12119450.73442073 1366366.40392395 12118485.44260988
+ 1366763.92050273
+  12119302.05738568 1367175.16711226
+   12119604.63789219 1367723.23091518
+    12120154.74160438 1367156.00587344
+     12121275.68590761 1366696.13120784
+      12120720.00422559 1365699.73637315
+       12119988.1453444 1366091.24953103 
+       12119500.36502992 1365950.59212397 12119450.73442073 1366366.40392395
+</posList>
+</LinearRing>
+</exterior>
+</Polygon>
+</polygonMember>
+</MultiPolygon>
+</geometry>
+<OBJECTID>1232131313</OBJECTID>
+<NAME>anh quyền đẹp trai vcl</NAME>
+<GID_0>312</GID_0>
+<NAME_0>123</NAME_0>
+<NAME_1>321</NAME_1>
+<NAME_2>12312312</NAME_2>
+<NAME_3>321</NAME_3>
+<VARNAME_3>13</VARNAME_3>
+<TYPE_3>313</TYPE_3>
+<CLOSED>1</CLOSED>
+<BORDER_STY>31233</BORDER_STY>
+<LABEL_POS>12</LABEL_POS>
+<FONT_SIZE>12313</FONT_SIZE>
+<FONT_COLOR>131</FONT_COLOR>
+<FONT_CHARS>131212</FONT_CHARS>
+<Shape_Leng>321</Shape_Leng>
+<Shape_Area>213</Shape_Area>
+<ID1>313</ID1>
+<ID2>3131</ID2>
+<pos_x>131</pos_x>
+<pos_y>113</pos_y>
+<area>1</area>
+<population>3113312</population>
+</hanh_chinh_nha_trang_ESPG3857>
+</Insert>
+</Transaction>
+
+
+<wfs:Transaction service="WFS" version="1.1.0"
+xmlns:TestingEditFeature="http://www.openplans.org/TestingEditFeature"
+xmlns:ogc="http://www.opengis.net/ogc"
+xmlns:wfs="http://www.opengis.net/wfs"
+xmlns:gml="http://www.opengis.net/gml"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd">
+<wfs:Insert>
+<TestingEditFeature:hanh_chinh_nha_trang_ESPG3857>
+<TestingEditFeature:the_geom>
+<geom xmlns="http://www.opengis.net/gml"><MultiSurface><surfaceMember><Polygon><exterior><LinearRing><posList srsDimension="2">12119450.73442073
+ 1366366.40392395 12118485.44260988 1366763.92050273
+ 12119302.05738568 1367175.16711226 12119604.63789219
+ 1367723.23091518 12120154.74160438 1367156.00587344 12120530.30257335 1366625.72201847 12120720.00422559 1365699.73637315 12119988.1453444 1366091.24953103 
+ 12119500.36502992 1365950.59212397 12119450.73442073 1366366.40392395</posList></LinearRing></exterior></Polygon></surfaceMember></MultiSurface></geom>
+</TestingEditFeature:the_geom>
+</TestingEditFeature:hanh_chinh_nha_trang_ESPG3857>
+</wfs:Insert>
+</wfs:Transaction>
+
+
+<wfs:Transaction service="WFS" version="1.1.0"
+xmlns:TestingEditFeature="http://www.openplans.org/TestingEditFeature"
+xmlns:topp="http://www.openplans.org/topp"
+xmlns:wfs="http://www.opengis.net/wfs"
+xmlns:gml="http://www.opengis.net/gml"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd">
+<wfs:Insert>
+<hanh_chinh_nha_trang_ESPG3857>
+<the_geom>
+<geom xmlns="http://www.opengis.net/gml"><MultiSurface><surfaceMember><Polygon><exterior><LinearRing><posList srsDimension="2">12119450.73442073
+ 1366366.40392395 12118485.44260988 1366763.92050273
+ 12119302.05738568 1367175.16711226 12119604.63789219
+ 1367723.23091518 12120154.74160438 1367156.00587344 12120530.30257335 1366625.72201847 12120720.00422559 1365699.73637315 12119988.1453444 1366091.24953103 
+ 12119500.36502992 1365950.59212397 12119450.73442073 1366366.40392395</posList></LinearRing></exterior></Polygon></surfaceMember></MultiSurface></geom>
+</the_geom>
+</hanh_chinh_nha_trang_ESPG3857>
+</wfs:Insert>
+</wfs:Transaction>
+
+
+<wfs:Transaction service="WFS" version="1.1.0"
+xmlns:topp="http://www.openplans.org/topp"
+xmlns:ogc="http://www.opengis.net/ogc"
+xmlns:wfs="http://www.opengis.net/wfs"
+xmlns:gml="http://www.opengis.net/gml"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd">
+<wfs:Insert>
+<hanh_chinh_nha_trang_EPSG3857>
+<the_geom>
+<geom xmlns="http://www.opengis.net/gml"><MultiSurface><surfaceMember><Polygon><exterior><LinearRing><posList srsDimension="2">12119450.73442073 1366366.40392395 12118485.44260988 1366763.92050273 12119302.05738568 1367175.16711226 12119604.63789219 1367723.23091518 12120154.74160438 1367156.00587344 12120530.30257335 1366625.72201847 12120720.00422559 1365699.73637315 12119988.1453444 1366091.24953103 12119500.36502992 1365950.59212397 12119450.73442073 1366366.40392395</posList></LinearRing></exterior></Polygon></surfaceMember></MultiSurface></geom>
+</the_geom>
+<OBJECTID>1232131313</OBJECTID>
+<NAME>anh quyền đẹp trai vcl</NAME>
+<GID_0>312</GID_0>
+<NAME_0>123</NAME_0>
+<NAME_1>321</NAME_1>
+<NAME_2>12312312</NAME_2>
+<NAME_3>321</NAME_3>
+<VARNAME_3>13</VARNAME_3>
+<TYPE_3>313</TYPE_3>
+<CLOSED>1</CLOSED>
+<BORDER_STY>31233</BORDER_STY>
+<LABEL_POS>12</LABEL_POS>
+<FONT_SIZE>12313</FONT_SIZE>
+<FONT_COLOR>131</FONT_COLOR>
+<FONT_CHARS>131212</FONT_CHARS>
+<Shape_Leng>321</Shape_Leng>
+<Shape_Area>213</Shape_Area>
+<ID1>313</ID1>
+<ID2>3131</ID2>
+<pos_x>131</pos_x>
+<pos_y>113</pos_y>
+<area>1</area>
+<population>3113312</population>
+</hanh_chinh_nha_trang_EPSG3857>
+</wfs:Insert>
+</wfs:Transaction>
+
+
+<!-- error "100" -->
+<wfs:Transaction service="WFS" version="1.1.0"
+xmlns:topp="http://www.openplans.org/topp"
+xmlns:ogc="http://www.opengis.net/ogc"
+xmlns:wfs="http://www.opengis.net/wfs"
+xmlns:gml="http://www.opengis.net/gml"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd">
+<wfs:Insert>
+<hanh_chinh_nha_trang_EPSG3857>
+<the_geom>
+<geom xmlns="http://www.opengis.net/gml"><Polygon><exterior><LinearRing><posList srsDimension="2">12120382.510636708 1366023.10880102 12121505.7633929 1366230.478507664 12120106.017584648 1366783.4644469817 12120382.510636708 1366023.10880102</posList></LinearRing></exterior></Polygon></geom>
+</the_geom>
+<OBJECTID>1232131313</OBJECTID>
+<NAME>anhq quyen 123</NAME>
+<GID_0>312</GID_0>
+<NAME_0>123</NAME_0>
+<NAME_1>321</NAME_1>
+<NAME_2>12312312</NAME_2>
+<NAME_3>321</NAME_3>
+<VARNAME_3>13</VARNAME_3>
+<TYPE_3>313</TYPE_3>
+<CLOSED>1</CLOSED>
+<BORDER_STY>31233</BORDER_STY>
+<LABEL_POS>12</LABEL_POS>
+<FONT_SIZE>12313</FONT_SIZE>
+<FONT_COLOR>131</FONT_COLOR>
+<FONT_CHARS>131212</FONT_CHARS>
+<Shape_Leng>321</Shape_Leng>
+<Shape_Area>213</Shape_Area>
+<ID1>313</ID1>
+<ID2>3131</ID2>
+<pos_x>131</pos_x>
+<pos_y>113</pos_y>
+<area>1</area>
+<population>3113312</population>
+</hanh_chinh_nha_trang_EPSG3857>
+</wfs:Insert>
+</wfs:Transaction>
+
+
+<!-- http://localhost:8080/geoserver/TestEditingFeature/wfs -->
+<wfs:Transaction service="WFS" version="1.1.0"
+xmlns:topp="http://www.openplans.org/topp"
+xmlns:ogc="http://www.opengis.net/ogc"
+xmlns:wfs="http://www.opengis.net/wfs"
+xmlns:gml="http://www.opengis.net/gml"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd">
+<wfs:Insert>
+<hanh_chinh_nha_trang_EPSG3857>
+<the_geom>
+<geom xmlns="http://www.opengis.net/gml"><Polygon><exterior><LinearRing><posList srsDimension="2">12121902.53296159 1366539.1609742069 12123322.98787867 1366054.7494533488 12123563.372501371 1366597.436061622 12121902.53296159 1366539.1609742069</posList></LinearRing></exterior></Polygon></geom>
+</the_geom>
+<OBJECTID>1232131313</OBJECTID>
+<NAME>anhq quyen 123</NAME>
+<GID_0>312</GID_0>
+<NAME_0>123</NAME_0>
+<NAME_1>321</NAME_1>
+<NAME_2>12312312</NAME_2>
+<NAME_3>321</NAME_3>
+<VARNAME_3>13</VARNAME_3>
+<TYPE_3>313</TYPE_3>
+<CLOSED>1</CLOSED>
+<BORDER_STY>31233</BORDER_STY>
+<LABEL_POS>12</LABEL_POS>
+<FONT_SIZE>12313</FONT_SIZE>
+<FONT_COLOR>131</FONT_COLOR>
+<FONT_CHARS>131212</FONT_CHARS>
+<Shape_Leng>321</Shape_Leng>
+<Shape_Area>213</Shape_Area>
+<ID1>313</ID1>
+<ID2>3131</ID2>
+<pos_x>131</pos_x>
+<pos_y>113</pos_y>
+<area>1</area>
+<population>3113312</population>
+</hanh_chinh_nha_trang_EPSG3857>
+</wfs:Insert>
+</wfs:Transaction>

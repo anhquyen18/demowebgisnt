@@ -345,10 +345,21 @@ a:link {
     justify-content: space-between;
 }
 
+
+/* .edit-form__add-field-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#add-field-button {
+    min-width: 100px;
+}
+
 #add-field-input {
     margin-left: 16px;
-    width: 130px;
-}
+    min-width: 200px;
+    resize: horizontal;
+} */
 
 .edit-form {
     display: none;
@@ -357,7 +368,8 @@ a:link {
 .edit-form.edit-form--show {
     background-color: #378bf2;
     color: #fff;
-    width: auto;
+    width: 500px;
+    height: 550px;
     text-align: left;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -368,12 +380,19 @@ a:link {
     margin-top: 5px;
 }
 
+.edit-form .feature-properties {
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    height: 90%;
+    overflow-y: auto;
+    border: solid white 1px;
+    border-radius: 5px;
+}
+
 .edit-form .feature-properties div {
     display: flex;
-    /* background-color: red; */
-    /* justify-content: right; */
-    /* flex-direction: column; */
-    /* left: 100px; */
+    margin-left: 10px;
 }
 
 .edit-form .feature-properties i {
@@ -381,13 +400,17 @@ a:link {
     border: none;
     font-size: 15px;
     cursor: pointer;
-    /* outline: none; */
 }
 
 .edit-form input {
-    width: 105px;
+    width: 300px;
     height: 25px;
     /* width: max-content; */
+    resize: horizontal;
+}
+
+.edit-form input:active {
+    width: auto;
 }
 
 .edit-form label {
@@ -851,13 +874,14 @@ a:link {
     background-color: white;
     -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
     filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
-    padding: 15px;
+    padding: 5px;
     border-radius: 10px;
     border: 1px solid #cccccc;
     bottom: 12px;
     left: -50px;
     min-width: 220px;
     max-width: 250px;
+    justify-content: center;
 }
 
 .ol-popup:after,
@@ -871,34 +895,74 @@ a:link {
     pointer-events: none;
 }
 
-
-/* Khi nào cải thiện được độ chính xác khi click chuột rồi bật lại */
-
-
-/* .ol-popup:after {
+.ol-popup:after {
     border-top-color: white;
     border-width: 10px;
     left: 48px;
     margin-left: -10px;
-} */
+}
 
-
-/* .ol-popup:before {
+.ol-popup:before {
     border-top-color: #cccccc;
     border-width: 11px;
     left: 48px;
     margin-left: -11px;
-} */
+}
 
 .ol-popup-closer {
     text-decoration: none;
     position: absolute;
-    top: 2px;
+    top: 5px;
     right: 8px;
 }
 
 .ol-popup-closer:after {
     content: "✖";
+}
+
+#popup-name {
+    background-color: #cccccc;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: large;
+    justify-content: center;
+    display: flex;
+    max-width: auto;
+    max-height: auto;
+    text-align: center;
+}
+
+#popup-attributes {
+    margin-top: 5px;
+    padding: 2px;
+}
+
+.attribute {
+    width: auto;
+    display: flex;
+    margin: 2px;
+}
+
+.attribute:nth-child(odd) {
+    background-color: #cccccc;
+}
+
+.attribute:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.attributes-name {
+    min-width: 60px;
+    margin-right: 3px;
+}
+
+.attributes-value {
+    max-width: auto;
+}
+
+.attributes-split {
+    width: 3px;
+    background-color: #ffffff;
 }
 
 
@@ -949,7 +1013,7 @@ a:link {
 
 .scale-line {
     position: absolute;
-    bottom: 6%;
+    bottom: 4%;
     right: 17%;
     pointer-events: none;
     /* z-index: 100; */
