@@ -128,7 +128,6 @@ function showLabelInfo(coord, view, vectorLayerPopup, overlayPopup, source) {
                         attributeSplit.classList = "attributes-split";
                         attributeValue.classList = "attributes-value";
                         attributeValue.innerText = ele["value"];
-
                         attribute.appendChild(attributeName);
                         attribute.appendChild(attributeSplit);
                         attribute.appendChild(attributeValue);

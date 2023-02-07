@@ -821,6 +821,7 @@ jQuery(document).ready(function($) {
         $('#popdown-button').click(function() {
             map.removeOverlay(overlayPopup);
             vectorLayerPopup.setVisible(false);
+            console.log(idArray);
         });
         $('#measure-button').on('click', function() {
             $('.measure-tool .form-inline').toggleClass('form-inline--show');
@@ -1029,28 +1030,63 @@ jQuery(document).ready(function($) {
         });
 
         var transactWFS = function(transactionType, feature) {
-            var node;
-            switch (transactionType) {
-                case 'insert':
-                    node = formatWFS.writeTransaction([feature], null, null, formatGML);
-                    break;
-                case 'update':
-                    node = formatWFS.writeTransaction(null, [feature], null, formatGML);
-                    break;
-                case 'delete':
-                    node = formatWFS.writeTransaction(null, null, [feature], formatGML);
-                    break;
+                var node;
+                switch (transactionType) {
+                    case 'insert':
+                        node = formatWFS.writeTransaction([feature], null, null, formatGML);
+                        break;
+                    case 'update':
+                        node = formatWFS.writeTransaction(null, [feature], null, formatGML);
+                        break;
+                    case 'delete':
+                        node = formatWFS.writeTransaction(null, null, [feature], formatGML);
+                        break;
+                }
+                var s = new XMLSerializer();
+                var str = s.serializeToString(node);
+                console.log(s);
+                console.log(str);
             }
-            var s = new XMLSerializer();
-            var str = s.serializeToString(node);
-            console.log(s);
-            console.log(str);
-        }
+            // thử 2 cách
+            // 1 là tạo mảng id gửi qua php rồi random dân số
+            // 2 là tạo mảng json gồm id và dân số rồi gửi qua php
+        var idArray = [];
+        map.addLayer(hanhChinhJsonMap);
+        hanhChinhJsonMap.getSource().on('featuresloadend', function(evt) {
+            const source = evt.target;
+            source.forEachFeature(function(feature) {
+                idArray.push({ featureId: feature.getId(), population: Math.floor(Math.random() * 100000000) });
+                // console.log(feature.getGeometry().getExtent());
+            });
+            map.removeLayer(hanhChinhJsonMap);
+            $.ajax({
+                type: "POST",
+                url: "data.php",
+                data: ({ featureArray: idArray }),
+                // data: { name: "anhquyen5", age: 21 },
+                // contentType: "application/json; charset=utf-8",
+                // dataType: "json",
+                success: function(data) {
+                    alert("Dữ liệu đã được thêm thành công!");
+
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+            });
+        });
+
+
 
 
 
 
     })();
+
+
+
+
+
 
 
 });

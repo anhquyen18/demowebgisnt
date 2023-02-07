@@ -9,7 +9,7 @@ const searchBt = document.querySelector('#search-button');
 const searchInput = document.querySelector('#search-input');
 const searchResult = document.querySelector('.address');
 
-searchBt.addEventListener('click', () => {
+searchBt.addEventListener('click', (e) => {
     search.classList.toggle('active');
     searchResult.classList.remove('active');
 });
