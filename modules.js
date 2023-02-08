@@ -56,29 +56,39 @@ function showOnlyOneLabelInfo(coord, view, vectorLayerPopup, overlayPopup, sourc
                             break;
                         }
                     }
+                    var featureId = exactlyFeature['id'];
+                    var featurePopulation;
                     var featureAttr = exactlyFeature.properties;
                     var featureName = featureAttr["TYPE_3"] + " " + featureAttr["NAME_3"];
-                    $("#popup-name").text(featureName);
-                    var attributeList = [{ "name": "Thuộc", "value": `${getParentPrefix(featureAttr["NAME_2"])} ` + featureAttr["NAME_2"] },
-                        { "name": "Dân số", "value": featureAttr["population"] },
-                        { "name": "Diện tích", "value": featureAttr["area"] + " m2" }
-                    ];
-                    $("#popup-attributes").html("");
-                    attributeList.forEach(function(ele) {
-                        var attribute = document.createElement("li");
-                        var attributeName = document.createElement("div");
-                        var attributeSplit = document.createElement("div");
-                        var attributeValue = document.createElement("div");
-                        attribute.classList = "attribute";
-                        attributeName.classList = "attributes-name";
-                        attributeName.innerText = ele["name"];
-                        attributeSplit.classList = "attributes-split";
-                        attributeValue.classList = "attributes-value";
-                        attributeValue.innerText = ele["value"];
-                        attribute.appendChild(attributeName);
-                        attribute.appendChild(attributeSplit);
-                        attribute.appendChild(attributeValue);
-                        $("#popup-attributes").append(attribute);
+                    $.ajax({
+                        type: "POST",
+                        url: "data.php",
+                        data: { featureId: featureId },
+                        success: function(population, status) {
+                            featurePopulation = population;
+                            $("#popup-name").text(featureName);
+                            var attributeList = [{ "name": "Thuộc", "value": `${getParentPrefix(featureAttr["NAME_2"])} ` + featureAttr["NAME_2"] },
+                                { "name": "Dân số", "value": featurePopulation },
+                                { "name": "Diện tích", "value": featureAttr["area"] + " m2" }
+                            ];
+                            $("#popup-attributes").html("");
+                            attributeList.forEach(function(ele) {
+                                var attribute = document.createElement("li");
+                                var attributeName = document.createElement("div");
+                                var attributeSplit = document.createElement("div");
+                                var attributeValue = document.createElement("div");
+                                attribute.classList = "attribute";
+                                attributeName.classList = "attributes-name";
+                                attributeName.innerText = ele["name"];
+                                attributeSplit.classList = "attributes-split";
+                                attributeValue.classList = "attributes-value";
+                                attributeValue.innerText = ele["value"];
+                                attribute.appendChild(attributeName);
+                                attribute.appendChild(attributeSplit);
+                                attribute.appendChild(attributeValue);
+                                $("#popup-attributes").append(attribute);
+                            });
+                        }
                     });
                     overlayPopup.setPosition(newCoord);
                     var vectorSource = new ol.source.Vector({
@@ -103,37 +113,47 @@ function showLabelInfo(coord, view, vectorLayerPopup, overlayPopup, source) {
         $.ajax({
             type: "GET",
             url: url,
-            contentType: "application/json; charset=utf-8",
+            // contentType: "application/json; charset=utf-8",
             dataType: 'json',
             success: function(data, status) {
                 try {
                     var feature = data.features[0];
+                    var featureId = feature['id'];
+                    var featurePopulation;
                     var featureAttr = feature.properties;
                     var featureName = featureAttr["TYPE_3"] + " " + featureAttr["NAME_3"];
                     // console.log(Object.keys(featureAttr)); get key list
-                    $("#popup-name").text(featureName);
-                    var attributeList = [{ "name": "Thuộc", "value": `${getParentPrefix(featureAttr["NAME_2"])} ` + featureAttr["NAME_2"] },
-                        { "name": "Dân số", "value": featureAttr["population"] },
-                        { "name": "Diện tích", "value": featureAttr["area"] + " m2" }
-                    ];
-                    $("#popup-attributes").html("");
-                    attributeList.forEach(function(ele) {
-                        var attribute = document.createElement("li");
-                        var attributeName = document.createElement("div");
-                        var attributeSplit = document.createElement("div");
-                        var attributeValue = document.createElement("div");
-                        attribute.classList = "attribute";
-                        attributeName.classList = "attributes-name";
-                        attributeName.innerText = ele["name"];
-                        attributeSplit.classList = "attributes-split";
-                        attributeValue.classList = "attributes-value";
-                        attributeValue.innerText = ele["value"];
-                        attribute.appendChild(attributeName);
-                        attribute.appendChild(attributeSplit);
-                        attribute.appendChild(attributeValue);
-                        $("#popup-attributes").append(attribute);
+                    $.ajax({
+                        type: "POST",
+                        url: "data.php",
+                        data: { featureId: featureId },
+                        success: function(population, status) {
+                            featurePopulation = population;
+                            $("#popup-name").text(featureName);
+                            var attributeList = [{ "name": "Thuộc", "value": `${getParentPrefix(featureAttr["NAME_2"])} ` + featureAttr["NAME_2"] },
+                                { "name": "Dân số", "value": featurePopulation },
+                                { "name": "Diện tích", "value": featureAttr["area"] + " m2" }
+                            ];
+                            $("#popup-attributes").html("");
+                            attributeList.forEach(function(ele) {
+                                var attribute = document.createElement("li");
+                                var attributeName = document.createElement("div");
+                                var attributeSplit = document.createElement("div");
+                                var attributeValue = document.createElement("div");
+                                attribute.classList = "attribute";
+                                attributeName.classList = "attributes-name";
+                                attributeName.innerText = ele["name"];
+                                attributeSplit.classList = "attributes-split";
+                                attributeValue.classList = "attributes-value";
+                                attributeValue.innerText = ele["value"];
+                                attribute.appendChild(attributeName);
+                                attribute.appendChild(attributeSplit);
+                                attribute.appendChild(attributeValue);
+                                $("#popup-attributes").append(attribute);
+                            });
+                            overlayPopup.setPosition(coord);
+                        }
                     });
-                    overlayPopup.setPosition(coord);
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(data)
                     });

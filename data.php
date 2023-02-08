@@ -10,6 +10,20 @@ mysqli_set_charset($conn, 'UTF8');
 mysqli_query($conn, "SET NAMES 'UTF8'");
 // $result = mysqli_query($conn, "SELECT * From population");
 
+//Truy vấn id
+$featureId = $_POST['featureId'];
+$featureIdQuery = "SELECT population_col FROM population WHERE'" . $featureId ."'=population.id";
+$result = mysqli_query($conn, $featureIdQuery);
+$featurePopulation;
+while($row = mysqli_fetch_assoc($result)) {
+    $featurePopulation = $row['population_col']; 
+}
+
+echo $featurePopulation;
+$conn->close();
+// echo $featureId;
+
+
 
 //Thử nghiệm các truy xuất dữ liệu của mảng trong PHP
 // echo $featureArray;
@@ -31,4 +45,3 @@ mysqli_query($conn, "SET NAMES 'UTF8'");
 // mysqli_query($conn, $insertQuery);
 // echo "success";
 // echo $insertQuery;
-
